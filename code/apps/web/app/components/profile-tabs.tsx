@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import styles from "./profile-tabs.module.css";
 
 type ProfileTab = "achievements" | "stats";
 
@@ -9,14 +10,14 @@ export function ProfileTabs() {
   const levelProgress = 72;
 
   return (
-    <section className="container profile-tabs">
+    <section className={`container ${styles.profileTabs}`}>
       <h2>Профиль читателя</h2>
-      <div className="tablist tablist-secondary" role="tablist" aria-label="Вкладки профиля">
+      <div className={styles.tablist} role="tablist" aria-label="Вкладки профиля">
         <button
           type="button"
           role="tab"
           aria-selected={activeTab === "achievements"}
-          className={`tab-trigger ${activeTab === "achievements" ? "tab-trigger-active" : ""}`}
+          className={`${styles.tabTrigger} ${activeTab === "achievements" ? styles.tabTriggerActive : ""}`}
           onClick={() => setActiveTab("achievements")}
         >
           Достижения
@@ -25,7 +26,7 @@ export function ProfileTabs() {
           type="button"
           role="tab"
           aria-selected={activeTab === "stats"}
-          className={`tab-trigger ${activeTab === "stats" ? "tab-trigger-active" : ""}`}
+          className={`${styles.tabTrigger} ${activeTab === "stats" ? styles.tabTriggerActive : ""}`}
           onClick={() => setActiveTab("stats")}
         >
           Статистика
@@ -33,15 +34,15 @@ export function ProfileTabs() {
       </div>
 
       <div role="tabpanel" hidden={activeTab !== "achievements"}>
-        <ul className="badge-list">
-          <li className="badge badge-earned">Первые 100 XP</li>
-          <li className="badge badge-earned">Серия 3 дня</li>
-          <li className="badge">Марафон: 10 дней</li>
+        <ul className={styles.badgeList}>
+          <li className={`${styles.badge} ${styles.badgeEarned}`}>Первые 100 XP</li>
+          <li className={`${styles.badge} ${styles.badgeEarned}`}>Серия 3 дня</li>
+          <li className={styles.badge}>Марафон: 10 дней</li>
         </ul>
       </div>
 
       <div role="tabpanel" hidden={activeTab !== "stats"}>
-        <dl className="stats-grid">
+        <dl className={styles.statsGrid}>
           <div className="stat-card">
             <dt>Уровень</dt>
             <dd>4</dd>
@@ -56,10 +57,10 @@ export function ProfileTabs() {
           </div>
         </dl>
 
-        <div className="level-bar-wrap">
-          <p className="level-bar-label">Прогресс до уровня 5</p>
-          <div className="level-bar" aria-label="Прогресс уровня">
-            <div className="level-bar-fill" style={{ width: `${levelProgress}%` }} />
+        <div className={styles.levelBarWrap}>
+          <p className={styles.levelBarLabel}>Прогресс до уровня 5</p>
+          <div className={styles.levelBar} aria-label="Прогресс уровня">
+            <div className={styles.levelBarFill} style={{ width: `${levelProgress}%` }} />
           </div>
         </div>
       </div>

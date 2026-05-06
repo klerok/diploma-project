@@ -1,0 +1,94 @@
+.profileTabs {
+  margin-top: 0.5rem;
+}
+
+.tablist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.tabTrigger {
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  color: var(--muted);
+  font-family: inherit;
+}
+
+.tabTrigger:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.tabTriggerActive {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.badgeList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.badge {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  border: 1px dashed var(--border);
+  color: var(--muted);
+}
+
+.badgeEarned {
+  border-style: solid;
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+.statsGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  margin-bottom: 1.5rem;
+}
+
+.statsGrid dt {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.statsGrid dd {
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.levelBarWrap {
+  max-width: 28rem;
+}
+
+.levelBarLabel {
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+  color: var(--muted);
+}
+
+.levelBar {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--border);
+  overflow: hidden;
+}
+
+.levelBarFill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), #8bc9bc);
+  transition: width 0.4s ease;
+}

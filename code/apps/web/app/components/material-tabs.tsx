@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { readingItems } from "../lib/reading-data";
+import styles from "./material-tabs.module.css";
 
 const tabs = ["Все", "Статьи", "Книги", "Учебные"] as const;
 type Tab = (typeof tabs)[number];
@@ -27,7 +28,7 @@ export function MaterialTabs() {
   return (
     <section className="container" aria-labelledby="materials-title">
       <h2 id="materials-title">Материалы для чтения</h2>
-      <div className="tablist" role="tablist" aria-label="Фильтр материалов">
+      <div className={styles.tablist} role="tablist" aria-label="Фильтр материалов">
         {tabs.map((tab) => {
           const isActive = tab === activeTab;
           return (
@@ -36,7 +37,7 @@ export function MaterialTabs() {
               type="button"
               role="tab"
               aria-selected={isActive}
-              className={`tab-trigger ${isActive ? "tab-trigger-active" : ""}`}
+              className={`${styles.tabTrigger} ${isActive ? styles.tabTriggerActive : ""}`}
               onClick={() => setActiveTab(tab)}
             >
               {tab}
@@ -45,14 +46,14 @@ export function MaterialTabs() {
         })}
       </div>
 
-      <p className="tab-panel-meta">Показано записей: {filtered.length}</p>
-      <ul className="material-list">
+      <p className={styles.tabPanelMeta}>Показано записей: {filtered.length}</p>
+      <ul className={styles.materialList}>
         {filtered.map((item) => (
-          <li key={item.id} className="material-card">
+          <li key={item.id} className={styles.materialCard}>
             <article>
               <h3>{item.title}</h3>
-              <p className="material-meta">
-                <span className="material-type">{item.type}</span>
+              <p className={styles.materialMeta}>
+                <span className={styles.materialType}>{item.type}</span>
                 <span>{item.pages} стр.</span>
                 <span>{item.completed ? "Завершено" : "В процессе"}</span>
               </p>

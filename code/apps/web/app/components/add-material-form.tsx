@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import styles from "./add-material-form.module.css";
 
 type Errors = {
   title?: string;
@@ -58,10 +59,10 @@ export function AddMaterialForm() {
   };
 
   return (
-    <form className="container stack-form" onSubmit={onSubmit} noValidate>
+    <form className={`container ${styles.stackForm}`} onSubmit={onSubmit} noValidate>
       <h2>Добавить материал</h2>
 
-      <div className="form-row">
+      <div className={styles.formRow}>
         <label htmlFor="material-title">Название</label>
         <input
           id="material-title"
@@ -69,10 +70,10 @@ export function AddMaterialForm() {
           onChange={(event) => setTitle(event.target.value)}
           placeholder="Например: Глава по SQL"
         />
-        {errors.title && <p className="field-error" role="alert">{errors.title}</p>}
+        {errors.title && <p className={styles.fieldError} role="alert">{errors.title}</p>}
       </div>
 
-      <div className="form-row">
+      <div className={styles.formRow}>
         <label htmlFor="material-type">Тип контента</label>
         <select id="material-type" value={type} onChange={(event) => setType(event.target.value)}>
           <option>Статья</option>
@@ -81,7 +82,7 @@ export function AddMaterialForm() {
         </select>
       </div>
 
-      <div className="form-row">
+      <div className={styles.formRow}>
         <label htmlFor="material-pages">Страниц / экранов</label>
         <input
           id="material-pages"
@@ -92,10 +93,10 @@ export function AddMaterialForm() {
           onChange={(event) => setPages(event.target.value)}
           placeholder="1-500"
         />
-        {errors.pages && <p className="field-error" role="alert">{errors.pages}</p>}
+        {errors.pages && <p className={styles.fieldError} role="alert">{errors.pages}</p>}
       </div>
 
-      <div className="form-row">
+      <div className={styles.formRow}>
         <label htmlFor="material-link">Ссылка (необязательно)</label>
         <input
           id="material-link"
@@ -103,11 +104,11 @@ export function AddMaterialForm() {
           onChange={(event) => setLink(event.target.value)}
           placeholder="https://example.com"
         />
-        {errors.link && <p className="field-error" role="alert">{errors.link}</p>}
+        {errors.link && <p className={styles.fieldError} role="alert">{errors.link}</p>}
       </div>
 
-      <button type="submit" className="btn-primary">Сохранить материал</button>
-      {isSuccess && <p className="form-success">Материал добавлен в трекер (демо-режим).</p>}
+      <button type="submit" className={styles.btnPrimary}>Сохранить материал</button>
+      {isSuccess && <p className={styles.formSuccess}>Материал добавлен в трекер (демо-режим).</p>}
     </form>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import styles from "./quest-list.module.css";
 
 const questData = [
   {
@@ -26,25 +27,25 @@ export function QuestList() {
   return (
     <section className="container">
       <h2>Квесты недели</h2>
-      <ul className="quest-list">
+      <ul className={styles.questList}>
         {questData.map((quest) => {
           const isOpen = openId === quest.id;
           const panelId = `quest-panel-${quest.id}`;
           return (
-            <li key={quest.id} className="quest-card">
-              <h3 className="quest-title">
+            <li key={quest.id} className={styles.questCard}>
+              <h3 className={styles.questTitle}>
                 <button
                   type="button"
-                  className="quest-toggle"
+                  className={styles.questToggle}
                   aria-expanded={isOpen}
                   aria-controls={panelId}
                   onClick={() => setOpenId(isOpen ? null : quest.id)}
                 >
-                  <span className="quest-title">{quest.title}</span>
-                  <span className="quest-xp">+90 XP</span>
+                  <span className={styles.questTitle}>{quest.title}</span>
+                  <span className={styles.questXp}>+90 XP</span>
                 </button>
               </h3>
-              <div id={panelId} className="quest-body" hidden={!isOpen}>
+              <div id={panelId} className={styles.questBody} hidden={!isOpen}>
                 <p>{quest.details}</p>
               </div>
             </li>

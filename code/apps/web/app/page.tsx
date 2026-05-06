@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { readingItems } from "./lib/reading-data";
+import styles from "./home.module.css";
 
 export default function Home() {
   const completedCount = readingItems.filter((item) => item.completed).length;
@@ -31,17 +32,17 @@ export default function Home() {
               <dd>{progressPercent}%</dd>
             </div>
           </dl>
-          <div className="level-bar-wrap">
-            <p className="level-bar-label">Общий прогресс чтения</p>
-            <div className="level-bar" aria-label="Общий прогресс чтения">
-              <div className="level-bar-fill" style={{ width: `${progressPercent}%` }} />
+          <div className={styles.levelBarWrap}>
+            <p className={styles.levelBarLabel}>Общий прогресс чтения</p>
+            <div className={styles.levelBar} aria-label="Общий прогресс чтения">
+              <div className={styles.levelBarFill} style={{ width: `${progressPercent}%` }} />
             </div>
           </div>
         </section>
 
         <section className="actions-row">
-          <Link href="/materials" className="btn-primary">Библиотека</Link>
-          <Link href="/add" className="btn-primary">Добавить материал</Link>
+          <Link href="/materials" className={styles.btnPrimary}>Библиотека</Link>
+          <Link href="/add" className={styles.btnPrimary}>Добавить материал</Link>
           <Link href="/quests" className="btn-ghost">Квесты</Link>
           <Link href="/profile" className="btn-ghost">Профиль</Link>
         </section>

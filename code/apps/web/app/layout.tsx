@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Link from "next/link";
+import { Navbar } from "./components/navbar";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -22,14 +23,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const links = [
-    { href: "/", label: "Дашборд" },
-    { href: "/materials", label: "Материалы" },
-    { href: "/add", label: "Добавить" },
-    { href: "/quests", label: "Квесты" },
-    { href: "/profile", label: "Профиль" },
-  ];
-
   return (
     <html lang="ru">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
@@ -39,15 +32,7 @@ export default function RootLayout({
               <Link href="/">ReadQuest</Link>
               <p className="app-tagline">Геймификация чтения и учебного контента</p>
             </div>
-            <nav className="app-nav" aria-label="Основная навигация">
-              <ul>
-                {links.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href}>{link.label}</Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+            <Navbar />
           </div>
         </header>
 
