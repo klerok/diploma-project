@@ -1,4 +1,5 @@
-import { ProfileTabs } from "../components/profile-tabs";
+import { AuthGate } from "../components/AuthGate";
+import { ProfileTabs } from "../components/ProfileTabs";
 
 export default function ProfilePage() {
   return (
@@ -9,7 +10,9 @@ export default function ProfilePage() {
           Страница для просмотра достижений и статистики.
         </p>
       </section>
-      <ProfileTabs />
+      <AuthGate>
+        <ProfileTabs />
+      </AuthGate>
     </main>
   );
 }

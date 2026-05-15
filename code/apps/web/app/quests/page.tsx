@@ -1,4 +1,5 @@
-import { QuestList } from "../components/quest-list";
+import { AuthGate } from "../components/AuthGate";
+import { QuestList } from "../components/QueryList";
 
 export default function QuestsPage() {
   return (
@@ -9,7 +10,9 @@ export default function QuestsPage() {
           Страница для просмотра и управления квестами и активностями.
         </p>
       </section>
-      <QuestList />
+      <AuthGate>
+        <QuestList />
+      </AuthGate>
     </main>
   );
 }

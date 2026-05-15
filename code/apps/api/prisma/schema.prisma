@@ -1,0 +1,108 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum MaterialType {
+  ARTICLE
+  BOOK
+  COURSE
+}
+
+enum QuestStatus {
+  ACTIVE
+  COMPLETED
+}
+
+model User {
+  id               Int       @id @default(autoincrement())
+  email            String    @unique
+  password         String
+  nickname         String    @unique
+  totalXp          Int       @default(0)
+  currentStreak    Int       @default(0)
+  lastActivityDate DateTime?
+  createdAt        DateTime  @default(now())
+
+  materials Material[]
+  xpLogs XpLog[]
+  userQuests UserQuest[]
+  userAchievements UserAchievement[]
+}
+
+model Material {
+  id Int @id @default(autoincrement())
+  userId Int
+  title String
+  type MaterialType
+  pages Int
+  sourceUrl String?
+  completed Boolean @default(false)
+  completedAt DateTime?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+  @@index([userId])
+}
+
+model XpLog {
+  id Int @id @default(autoincrement())
+  userId Int
+  amount Int
+  reason String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+  @@index([userId, createdAt])
+}
+
+model Quest {
+  id Int @id @default(autoincrement())
+  title String
+  description String
+  targetCount Int
+  rewardXp Int
+
+  userQuests UserQuest[]
+}
+
+model UserQuest {
+  id Int @id @default(autoincrement())
+  userId Int
+  questId Int
+  progress Int @default(0)
+  status QuestStatus @default(ACTIVE)
+
+  user User @relation(fields: [userId], references: [id])
+  quest Quest @relation(fields: [questId], references: [id])
+  @@unique([userId, questId])
+}
+
+model Achievement {
+  id Int @id @default(autoincrement())
+  code String @unique
+  title String
+
+  userAchievements UserAchievement[]
+}
+
+model UserAchievement {
+  id Int @id @default(autoincrement())
+  userId Int
+  achievementId Int
+  earnedAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+  achievement Achievement @relation(fields: [achievementId], references: [id])
+  @@unique([userId, achievementId])
+}

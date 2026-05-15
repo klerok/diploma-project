@@ -1,0 +1,9 @@
+import { Module } from '@nestjs/common';
+import { XpService } from './xp.service';
+import { XpController } from './xp.controller';
+
+@Module({
+  controllers: [XpController],
+  providers: [XpService],
+})
+export class XpModule {}

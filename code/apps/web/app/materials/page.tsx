@@ -1,4 +1,5 @@
-import { MaterialTabs } from "../components/material-tabs";
+import { AuthGate } from "../components/AuthGate";
+import { MaterialTabs } from "../components/MaterialTabs";
 
 export default function MaterialsPage() {
   return (
@@ -9,7 +10,9 @@ export default function MaterialsPage() {
           Страница для просмотра и управления материалами.
         </p>
       </section>
-      <MaterialTabs />
+      <AuthGate>
+        <MaterialTabs />
+      </AuthGate>
     </main>
   );
 }

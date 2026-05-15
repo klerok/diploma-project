@@ -1,4 +1,5 @@
-import { AddMaterialForm } from "../components/add-material-form";
+import { AddMaterialForm } from "../components/AddMaterialForm";
+import { AuthGate } from "../components/AuthGate";
 
 export default function AddPage() {
   return (
@@ -9,7 +10,9 @@ export default function AddPage() {
           Страница для добавления новых материалов в библиотеку.
         </p>
       </section>
-      <AddMaterialForm />
+      <AuthGate>
+        <AddMaterialForm />
+      </AuthGate>
     </main>
   );
 }

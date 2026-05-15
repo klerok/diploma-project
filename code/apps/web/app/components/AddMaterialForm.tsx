@@ -1,20 +1,26 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { createMaterial } from "../lib/api";
+import { labelToMaterialType } from "../lib/mappers";
 
 type Errors = {
   title?: string;
   pages?: string;
   link?: string;
+  submit?: string;
 };
 
 export function AddMaterialForm() {
+  const router = useRouter();
   const [title, setTitle] = useState("");
   const [type, setType] = useState("Статья");
   const [pages, setPages] = useState("");
   const [link, setLink] = useState("");
   const [errors, setErrors] = useState<Errors>({});
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validate = () => {
     const nextErrors: Errors = {};
@@ -43,18 +49,38 @@ export function AddMaterialForm() {
     return Object.keys(nextErrors).length === 0;
   };
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!validate()) {
       setIsSuccess(false);
       return;
     }
 
-    setIsSuccess(true);
-    setTitle("");
-    setPages("");
-    setLink("");
-    setType("Статья");
+    setIsSubmitting(true);
+    setErrors({});
+
+    try {
+      await createMaterial({
+        title: title.trim(),
+        type: labelToMaterialType(type),
+        pages: Number(pages),
+        ...(link.trim() ? { sourceUrl: link.trim() } : {}),
+      });
+
+      setIsSuccess(true);
+      setTitle("");
+      setPages("");
+      setLink("");
+      setType("Статья");
+      router.refresh();
+    } catch (e) {
+      setIsSuccess(false);
+      setErrors({
+        submit: e instanceof Error ? e.message : "Не удалось сохранить материал",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -106,8 +132,11 @@ export function AddMaterialForm() {
         {errors.link && <p className="field-error" role="alert">{errors.link}</p>}
       </div>
 
-      <button type="submit" className="btn-primary">Сохранить материал</button>
-      {isSuccess && <p className="form-success">Материал добавлен в трекер (демо-режим).</p>}
+      <button type="submit" className="btn-primary" disabled={isSubmitting}>
+        {isSubmitting ? "Сохранение…" : "Сохранить материал"}
+      </button>
+      {errors.submit && <p className="field-error" role="alert">{errors.submit}</p>}
+      {isSuccess && <p className="form-success">Материал добавлен в библиотеку.</p>}
     </form>
   );
 }
