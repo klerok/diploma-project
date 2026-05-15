@@ -68,8 +68,8 @@ export default async function Home() {
         </section>
 
         <section className="actions-row">
-          <Link href="/materials" className="btn-primary">Библиотека</Link>
-          <Link href="/add" className="btn-primary">Добавить материал</Link>
+          <Link href="/materials" className={styles.btnPrimary}>Библиотека</Link>
+          <Link href="/add" className={styles.btnPrimary}>Добавить материал</Link>
           <Link href="/quests" className="btn-ghost">Квесты</Link>
           <Link href="/profile" className="btn-ghost">Профиль</Link>
         </section>
